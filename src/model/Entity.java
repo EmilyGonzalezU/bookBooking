@@ -2,17 +2,17 @@ package model;
 
 public abstract class Entity {
     //General class
-    private int id;
+    private String id;
 
     public Entity(int id){
-        this.id = id;
+        this.id = String.valueOf(id);
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setString(int id) {
+        this.id = String.valueOf(id);
     }
 }

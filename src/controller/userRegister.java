@@ -1,22 +1,24 @@
 package controller;
 
-import model.book;
+import connection.bdConnection;
+import model.user;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import connection.bdConnection;
 
-public class bookRegister {
-    public boolean bookAdd(book book) {
-        String query = "INSERT INTO book (tittle, autor, isbn, editorial) VALUES (?, ?, ?, ?)";
+public class userRegister {
+    public boolean userAdd(user user) {
+        String query = "INSERT INTO user (id, nanme, lastName, email, sanctions) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection myConn = bdConnection.getConnection();
              PreparedStatement stmt = myConn.prepareStatement(query)) {
 
-            stmt.setString(1, book.getTittle());
-            stmt.setString(2, book.getAutor());
-            stmt.setString(3, book.getIsbn());
-            stmt.setString(4, book.getEditorial());
+            stmt.setString(1, user.getId());
+            stmt.setString(2, user.getName());
+            stmt.setString(3, user.getLastName());
+            stmt.setString(4, user.getEmail());
+            stmt.setInt(5, user.getSanctions());
 
             stmt.executeUpdate();
 
@@ -33,17 +35,15 @@ public class bookRegister {
         }
     }
 
-    public boolean bookModify(book book) {
-        String query = "UPDATE book SET tille=?, auto=?, isbn=?, editorial=? WHERE book_id=?";
+    public boolean userModify(user user) {
+        String query = "UPDATE user SET name = ?, lastName = ?, email = ? WHERE id = ?";
 
         try (Connection myConn = bdConnection.getConnection();
              PreparedStatement stmt = myConn.prepareStatement(query)) {
 
-            stmt.setString(1, book.getTittle());
-            stmt.setString(2, book.getAutor());
-            stmt.setString(3, book.getIsbn());
-            stmt.setString(4, book.getEditorial());
-            stmt.setString(5, book.getId()); ;
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getEmail());
 
             stmt.executeUpdate();
 
@@ -60,14 +60,14 @@ public class bookRegister {
         }
     }
 
-    public boolean bookDelete(book book) {
-        String query = "DELETE FROM book  WHERE  book_id=?";
+    public boolean userDelete(user user) {
+        String query = "DELETE CASCADE FROM user  WHERE  id=?";
 
         try (Connection myConn = bdConnection.getConnection();
 
              PreparedStatement stmt = myConn.prepareStatement(query)) {
 
-            stmt.setString(1, book.getId()); ;
+            stmt.setString(1, user.getId()); ;
 
             stmt.executeUpdate();
 
@@ -82,6 +82,4 @@ public class bookRegister {
             return false;
         }
     }
-
-
 }
