@@ -38,6 +38,7 @@ public class principalView extends JFrame {
 
         pack();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        distributeOptions();
 
 
     }
@@ -48,4 +49,22 @@ public class principalView extends JFrame {
     }
 
     //method to distribute options
+    private void distributeOptions() {
+        comboBoxOptions.addActionListener((ActionEvent e) ->{
+            //Index of the list [0, 1, 2, 3, 4. . . ]
+            String options = (String) comboBoxOptions.getSelectedItem();
+
+            switch (options){
+                case "Add Books":
+                    //Needs to be initialized
+                    booksAddView booksAddView = new booksAddView();
+                    //shows view
+                    booksAddView.setVisible(true);
+                    break;
+                default:
+                    System.out.println("Invalid option");
+                    break;
+            }
+        });
+    }
 }
